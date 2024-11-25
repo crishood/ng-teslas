@@ -21,10 +21,11 @@ import { CommonModule } from '@angular/common';
 export class Step1Component implements OnInit {
   private _configuratorService = inject(ConfiguratorService);
   public allModels: Signal<CarModel[]> = this._configuratorService.getModels();
-  public currentModel: Signal<CarModel | undefined> = signal(undefined);
+  public currentModel = signal<CarModel | undefined>(undefined);
   public form: FormGroup;
 
   private _fb = inject(FormBuilder);
+
   ngOnInit() {
     this._initFormValues();
   }
@@ -42,12 +43,14 @@ export class Step1Component implements OnInit {
       model: [null],
       color: [null],
     });
+
     this._setFormValues();
   }
 
   private _setFormValues() {
     this.form.get('model')?.valueChanges.subscribe((value) => {
-      this.currentModel = this._configuratorService.getCurrentModel(value);
+      const newModel = this._configuratorService.getCurrentModel(value);
+      this.currentModel.set(newModel());
       this.form.get('color')?.setValue(this.currentModel()?.colors[0].code);
     });
   }

@@ -17,8 +17,7 @@ export class ConfiguratorService {
   }
 
   getCurrentModel(code: string): Signal<CarModel | undefined> {
-    return computed(() =>
-      this.allModels().find((model) => model.code === code)
-    );
+    this.currentCar.set(this.allModels().find((model) => model.code === code));
+    return this.currentCar;
   }
 }
