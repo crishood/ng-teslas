@@ -1,6 +1,6 @@
 <div class="button-group">
   <button routerLink="step1">Step 1</button>
-  <button routerLink="step2" disabled>Step 2</button>
+  <button routerLink="step2" [disabled]="!hasSelectedConfig()">Step 2</button>
   <button routerLink="step3" disabled>Step 3</button>
 </div>
-<app-step1 />
+<router-outlet />

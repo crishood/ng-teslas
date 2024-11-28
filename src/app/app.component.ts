@@ -1,12 +1,19 @@
-import { Component, inject, signal, Signal } from '@angular/core';
-import { Step1Component } from './step1/step1.component';
-import { CarModel } from './models.type';
+import { Component, computed, inject, Signal } from '@angular/core';
+import { SelectedConfig } from './models.type';
 import { ConfiguratorService } from './configurator.service';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Step1Component],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: 'app.component.html',
 })
-export class AppComponent {}
+export class AppComponent {
+  private _configuratorService = inject(ConfiguratorService);
+  public selectedConfig: Signal<Partial<SelectedConfig>> =
+    this._configuratorService.selectedConfig;
+  public hasSelectedConfig = computed(
+    () => !!this.selectedConfig().car && !!this.selectedConfig().color
+  );
+}

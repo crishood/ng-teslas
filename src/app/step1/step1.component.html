@@ -3,27 +3,27 @@
   Model:
   <select formControlName="model">
     @for (model of allModels(); track model.code) {
-    <option
-      [value]="model.code"
-      [selected]="model.code === allModels()[0].code"
-    >
-      {{ model.code }}
-    </option>
+      <option
+        [value]="model.code"
+        [selected]="model.code === allModels()[0].code"
+      >
+        {{ model.code }}
+      </option>
     }
   </select>
   Color:
   <select formControlName="color">
     @for (color of currentModel()?.colors; track color.code) {
-    <option [value]="color.code" [selected]="">
-      {{ color.description }}
-    </option>
+      <option [value]="color.code" [selected]="">
+        {{ color.description }}
+      </option>
     }
   </select>
 </form>
 
 <div>
   @if (currentModel()) {
-  <h2>{{ currentModel()?.description }}</h2>
-  <img [src]="carUrl()" />
+    <h2>{{ currentModel()?.description }}</h2>
+    <img [src]="carUrl()" />
   }
 </div>
